@@ -123,7 +123,7 @@ const content = {
         </div>
         <div class="project-card card" data-project-id="project3">
           <img src="assets/images/projects/adoplastic.jpg" alt="Adoplastic">
-          <h3>XYZ</h3>
+          <h3>Xyz</h3>
           <p>A real-world company website including quote functionality for booking</p>
         </div>
         <!-- Add more project cards as needed -->
