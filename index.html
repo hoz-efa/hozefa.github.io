@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Angel Martinez Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Include any fonts or icons here -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar card">
+      <div class="profile-section">
+        <img src="assets/images/profile.jpeg" alt="Profile" class="profile-pic">
+        <h1 class="name">Angel Martinez</h1>
+        <p class="job-title">Front-end Developer</p>
+        <p class="location">Coahuila, México</p>
+        <p class="bio">I'm a self-taught developer who enjoys building projects that help people with their everyday tasks quickly and easily.</p>
+        <div class="social-links">
+          <a href="#" target="_blank"><i class="github-icon"></i></a>
+          <a href="#" target="_blank"><i class="twitter-icon"></i></a>
+          <a href="#" target="_blank"><i class="linkedin-icon"></i></a>
+        </div>
+        <a href="assets/resume.pdf" download="resume.pdf" class="resume-btn">Download Resume</a>
+
+        <!-- Theme Toggle Switch -->
+        <button class="theme-toggle" id="theme-toggle" title="Toggle light & dark mode" aria-label="auto" aria-live="polite">
+          <!-- Sun and Moon SVG icon -->
+          <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+            <mask class="moon" id="moon-mask">
+              <rect x="0" y="0" width="100%" height="100%" fill="white" />
+              <circle cx="24" cy="10" r="6" fill="black" />
+            </mask>
+            <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+            <g class="sun-beams" stroke="currentColor">
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </g>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content-area">
+      <!-- Navigation Menu -->
+      <nav class="top-nav card">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#" class="menu-item active" data-section="projects">Projects</a></li>
+          <li><a href="#" class="menu-item" data-section="experience">Experience</a></li>
+          <li><a href="#" class="menu-item" data-section="education">Education</a></li>
+          <li><a href="#" class="menu-item" data-section="skills">Skills</a></li>
+          <li><a href="#" class="menu-item" data-section="contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main id="main-content" class="card">
+        <!-- Content will be dynamically loaded here -->
+      </main>
+    </div>
+  </div>
+
+  <!-- Project Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-content card">
+      <span class="close-button">&times;</span>
+      <!-- Project details will be dynamically loaded here -->
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Overlay for blurred background -->
+  <div id="modal-overlay" class="modal-overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
