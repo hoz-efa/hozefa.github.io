@@ -121,6 +121,11 @@ const content = {
           <h3>Adoplastic</h3>
           <p>A real-world company website including quote functionality for booking</p>
         </div>
+        <div class="project-card card" data-project-id="project3">
+          <img src="assets/images/projects/adoplastic.jpg" alt="Adoplastic">
+          <h3>XYZ</h3>
+          <p>A real-world company website including quote functionality for booking</p>
+        </div>
         <!-- Add more project cards as needed -->
       </div>
     </section>
@@ -260,6 +265,17 @@ const projectData = {
   },
   project2: {
     title: 'Adoplastic',
+    image: 'assets/images/projects/adoplastic.jpg',
+    description:
+      `A real-world company website including quote functionality...
+      <br>
+      also it include all the features like`,
+    technologies: ['Next.js', 'Tailwind CSS'],
+    liveLink: '#',
+    repoLink: '#',
+  },
+  project3: {
+    title: 'Xyz',
     image: 'assets/images/projects/adoplastic.jpg',
     description:
       `A real-world company website including quote functionality...
