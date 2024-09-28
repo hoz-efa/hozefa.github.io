@@ -35,7 +35,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 16px;
+    font-size: 16px; /* Ensure font size is at least 16px */
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
@@ -379,6 +379,7 @@ body {
     border-radius: 5px;
     background-color: transparent;
     color: var(--text-color);
+    font-size: 16px; /* Ensure input font size is at least 16px */
 }
 
 .contact-form input::placeholder,
@@ -393,6 +394,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .contact-form button:hover {
@@ -542,9 +544,10 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
 }
 
 @media (max-width: 768px) {
-    body {
+    /* Removed font-size adjustment to keep font-size at least 16px */
+    /* body {
         font-size: 14px;
-    }
+    } */
 
     .name {
         font-size: 1.3rem;
@@ -553,7 +556,7 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
     .job-title,
     .location,
     .bio {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .timeline-content h3 {
@@ -562,7 +565,7 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
 
     .timeline-content p,
     .skills-category ul li {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .top-nav {
