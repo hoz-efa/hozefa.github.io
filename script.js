@@ -216,6 +216,7 @@ window.onload = () => {
             this.classList.add('active');
             const section = this.getAttribute('data-section');
             document.getElementById('main-content').innerHTML = content[section];
+            // Do not scroll to top
         });
     });
 
@@ -255,3 +256,4 @@ window
         theme.value = isDark ? 'dark' : 'light';
         setPreference();
     });
+    
