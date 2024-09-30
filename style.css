@@ -107,20 +107,26 @@ body {
 .social-links {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 20px; /* Space between icons */
   margin-top: 15px;
 }
 
 /* Default SVG styles */
 .social-links a {
-  margin: 0 10px;
-  transition: color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px; /* Set the container size */
+  height: 34px; /* Set the container size */
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* SVG icons (Duo-tone) */
+/* SVG icons inside */
 .social-links .social-icon {
-  width: 24px;
-  height: 24px;
-  stroke: currentColor; /* The color will inherit based on the theme */
+  width: 100%; /* Make the icon responsive to container */
+  height: 100%; /* Make the icon responsive to container */
+  fill: currentColor; /* Ensure it inherits color */
 }
 
 /* Light Theme */
@@ -134,7 +140,8 @@ body {
 }
 
 /* Hover effect */
-.social-links a:hover .social-icon {
+.social-links a:hover {
+  transform: scale(1.1); /* Slightly enlarge icon on hover */
   color: var(--primary-color); /* Custom primary color on hover */
 }
 
