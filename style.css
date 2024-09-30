@@ -103,20 +103,39 @@ body {
     font-size: 0.9rem;
 }
 
+/* Social Links Section */
 .social-links {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
 }
 
+/* Default SVG styles */
 .social-links a {
-    margin: 0 10px;
-    color: var(--icon-fill);
-    transition: color 0.3s;
+  margin: 0 10px;
+  transition: color 0.3s ease;
 }
 
-.social-links a:hover {
-    color: var(--icon-fill-hover);
+/* SVG icons (Duo-tone) */
+.social-links .social-icon {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor; /* The color will inherit based on the theme */
+}
+
+/* Light Theme */
+[data-theme="light"] .social-icon {
+  color: #000; /* Black for light mode */
+}
+
+/* Dark Theme */
+[data-theme="dark"] .social-icon {
+  color: #fff; /* White for dark mode */
+}
+
+/* Hover effect */
+.social-links a:hover .social-icon {
+  color: var(--primary-color); /* Custom primary color on hover */
 }
 
 .resume-btn {
