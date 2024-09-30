@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angel Martinez - Front-end Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Include Font Awesome -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,17 +15,20 @@
             <div class="profile-section">
                 <img src="assets/images/profile.jpeg" alt="Angel Martinez" class="profile-pic">
                 <h1 id="angel-martinez" class="name">Angel Martinez</h1>
-                <p>Front-end Developer</p>
-                <p>Coahuila, México</p>
-                <p>I'm a self-taught developer who enjoys building projects that help people with their everyday tasks quickly and easily.</p>
+                <p class="job-title">Front-end Developer</p>
+                <p class="location">Coahuila, México</p>
+                <p class="bio">I'm a self-taught developer who enjoys building projects that help people with their everyday tasks quickly and easily.</p>
                 <div class="social-links">
                     <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
                 <a href="assets/resume.pdf" class="resume-btn" download="resume.pdf">Download Resume</a>
-                <button id="theme-toggle" class="theme-toggle" aria-label="auto" aria-live="polite">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <!-- SVG icon -->
                     <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                        <!-- SVG content -->
                         <mask class="moon" id="moon-mask">
                             <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
                             <circle cx="24" cy="10" r="6" fill="black"></circle>
@@ -58,7 +63,7 @@
     </div>
     <div id="project-modal" class="modal">
         <div class="modal-content card">
-            <span class="close-button">&times;</span>
+            <span class="close-button">×</span>
             <div id="modal-content"></div>
         </div>
     </div>
