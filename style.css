@@ -40,7 +40,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
 }
 
 /* Card Styling */
@@ -223,7 +223,8 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    max-width: calc(100% - 270px);
+    max-width: calc(100% - 270px); /* Adjusted to account for sidebar width and margin */
+    padding: 20px 0; /* Add padding to the left and right for the main content area */
 }
 
 .top-nav {
@@ -272,7 +273,7 @@ body {
     flex: 1;
     overflow-y: auto;
     width: 100%;
-    min-height: 400px; /* Add this line to ensure minimum height */
+    padding: 20px; /* Add padding to the left and right for the main content */
 }
 
 /* Ensure consistent width */
@@ -435,7 +436,7 @@ body {
     right: 0;
     bottom: 0;
     z-index: 100;
-    overflow: hidden;
+    overflow: hidden; /* Prevent body scrolling */
     align-items: center;
     justify-content: center;
 }
@@ -449,7 +450,7 @@ body {
     margin: auto;
     position: relative;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable scrolling inside modal */
     scrollbar-width: thin;
     scrollbar-color: var(--primary-color) transparent;
 }
@@ -484,7 +485,7 @@ body {
 
 /* Apply blur effect when modal is active */
 body.modal-active {
-    overflow: hidden;
+    overflow: hidden; /* Prevent background scrolling */
 }
 
 body.modal-active > *:not(.modal):not(.modal-overlay) {
@@ -510,7 +511,8 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
         width: 100%;
         margin-left: 0;
         padding: 0;
-        max-width: 100%;
+        max-width: 800px;
+        padding: 20px 0; /* Add padding to the left and right for the main content area */
     }
 
     .top-nav,
@@ -518,11 +520,11 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
         width: 100%;
         box-sizing: border-box;
         margin: 0 auto var(--spacing);
-        padding: 15px;
+        padding: 0 10px;
     }
 
     .nav-links {
-        justify-content: flex-start;
+        justify-content: center;
         padding-bottom: 5px;
     }
 
