@@ -35,12 +35,12 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 16px; /* Ensure font size is at least 16px */
+    font-size: 16px;
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    overflow-x: hidden;
 }
 
 /* Card Styling */
@@ -223,9 +223,9 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    max-width: calc(100% - 270px);
 }
 
-/* Navigation Menu */
 .top-nav {
     background-color: var(--card-bg-color);
     padding: 15px;
@@ -272,6 +272,12 @@ body {
     flex: 1;
     overflow-y: auto;
     width: 100%;
+    min-height: 400px; /* Add this line to ensure minimum height */
+}
+
+/* Ensure consistent width */
+.content-section {
+    width: 100%;
 }
 
 /* Projects Grid */
@@ -286,7 +292,6 @@ body {
     padding: 20px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    width: 100%;
 }
 
 /* Timeline Styles */
@@ -379,7 +384,6 @@ body {
     border-radius: 5px;
     background-color: transparent;
     color: var(--text-color);
-    font-size: 16px; /* Ensure input font size is at least 16px */
 }
 
 .contact-form input::placeholder,
@@ -394,7 +398,6 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 .contact-form button:hover {
@@ -432,7 +435,7 @@ body {
     right: 0;
     bottom: 0;
     z-index: 100;
-    overflow: hidden; /* Prevent body scrolling */
+    overflow: hidden;
     align-items: center;
     justify-content: center;
 }
@@ -446,7 +449,7 @@ body {
     margin: auto;
     position: relative;
     max-height: 80vh;
-    overflow-y: auto; /* Enable scrolling inside modal */
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-color) transparent;
 }
@@ -481,7 +484,7 @@ body {
 
 /* Apply blur effect when modal is active */
 body.modal-active {
-    overflow: hidden; /* Prevent background scrolling */
+    overflow: hidden;
 }
 
 body.modal-active > *:not(.modal):not(.modal-overlay) {
@@ -507,6 +510,7 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
         width: 100%;
         margin-left: 0;
         padding: 0;
+        max-width: 100%;
     }
 
     .top-nav,
@@ -514,11 +518,11 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
         width: 100%;
         box-sizing: border-box;
         margin: 0 auto var(--spacing);
-        padding: 0 10px;
+        padding: 15px;
     }
 
     .nav-links {
-        justify-content: center;
+        justify-content: flex-start;
         padding-bottom: 5px;
     }
 
@@ -544,10 +548,9 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
 }
 
 @media (max-width: 768px) {
-    /* Removed font-size adjustment to keep font-size at least 16px */
-    /* body {
+    body {
         font-size: 14px;
-    } */
+    }
 
     .name {
         font-size: 1.3rem;
@@ -556,7 +559,7 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
     .job-title,
     .location,
     .bio {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .timeline-content h3 {
@@ -565,7 +568,7 @@ body.modal-active > *:not(.modal):not(.modal-overlay) {
 
     .timeline-content p,
     .skills-category ul li {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .top-nav {
