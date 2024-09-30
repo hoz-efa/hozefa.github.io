@@ -622,17 +622,3 @@ iframe {
         transform: translateY(0);
     }
 }
-
-/* Main Content and Navigation Bar Consistent Width */
-.main-content-area, .top-nav {
-    width: calc(100% - 40px); /* Adjust based on your existing padding if different */
-}
-
-.nav-links {
-    width: 100%;
-    justify-content: space-around; /* Adjust link spacing evenly */
-}
-
-#main-content {
-    width: 100%; /* Ensures that the content area always fills the container */
-}
