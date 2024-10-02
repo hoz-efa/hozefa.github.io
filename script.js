@@ -26,10 +26,7 @@ function reflectPreference() {
 }
 
 function onClick() {
-    theme.value = theme.value === 'light'
-        ? 'dark'
-        : 'light';
-
+    theme.value = theme.value === 'light' ? 'dark' : 'light';
     setPreference();
 }
 
@@ -130,13 +127,24 @@ const content = {
     contact: `
         <section id="contact" class="content-section">
             <h2>Contact Me</h2>
-            <!-- Tally.so form embed -->
-            <iframe data-tally-src="https://tally.so/embed/mOJXgp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="228" frameborder="0" marginheight="0" marginwidth="0" title="Contact Form"></iframe>
-            
-            <div id="formResponse" class="popup-box" style="display:none;">
-                <span id="responseMessage"></span>
+            <!-- Web3Forms form -->
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="contact-form card">
+                <!-- Hidden fields for Web3Forms -->
+                <input type="hidden" name="access_key" value="c79992af-9148-4bcd-aa1f-4376fe48eb64">
+                <input type="hidden" name="_captcha" value="false">
+
+                <!-- Input fields -->
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <!-- Popup for form response -->
+            <div id="formResponse" class="popup-box">
+                <div id="responseMessage"></div>
             </div>
-    
+
+
             <div class="schedule-meeting">
                 <a href="https://calendly.com/hozefapatel1999" target="_blank">Schedule a Meeting</a>
             </div>
@@ -205,31 +213,69 @@ function showPopup(message, type) {
     const responseBox = document.querySelector("#formResponse");
     const responseMessage = document.querySelector("#responseMessage");
 
-    responseMessage.textContent = message;
-    responseMessage.style.color = (type === 'success') ? 'green' : 'red';
-    responseBox.style.display = 'block';
+    // Clear previous content
+    responseMessage.innerHTML = '';
+
+    // Create icon element
+    const icon = document.createElement('span');
+    icon.classList.add('popup-icon');
+
+    if (type === 'success') {
+        responseBox.classList.add('success');
+        responseBox.classList.remove('error');
+        icon.textContent = '✔️'; // Success icon
+    } else {
+        responseBox.classList.add('error');
+        responseBox.classList.remove('success');
+        icon.textContent = '❌'; // Error icon
+    }
+
+    // Append icon and message to the responseMessage
+    responseMessage.appendChild(icon);
+    const text = document.createElement('span');
+    text.textContent = message;
+    responseMessage.appendChild(text);
+
+    responseBox.classList.add('show');
 
     setTimeout(() => {
-        responseBox.style.display = 'none'; // Hide the popup after 4 seconds
+        responseBox.classList.remove('show'); // Hide the popup after 4 seconds
     }, 4000);
 }
 
-// Main onload function (only one)
-window.onload = function() {
-    // Load the Tally.so embed script dynamically
-    var script = document.createElement('script');
-    script.src = "https://tally.so/widgets/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
+// Function to set up the contact form
+function setupContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
 
-    script.onload = function() {
-        console.log("Tally.so form script loaded successfully");
-    };
+            const formData = new FormData(contactForm);
 
-    script.onerror = function() {
-        console.log("Error loading Tally.so form script");
-    };
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status === 200) {
+                        showPopup('✔️ Your message has been sent successfully!', 'success');
+                        contactForm.reset();
+                    } else {
+                        console.log(json);
+                        showPopup('❌ Something went wrong, please try again.', 'error');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    showPopup('❌ Something went wrong, please try again.', 'error');
+                });
+        });
+    }
+}
 
+// Main onload function
+window.onload = function () {
     // Set theme on load for screen readers
     reflectPreference();
 
@@ -244,6 +290,11 @@ window.onload = function() {
             this.classList.add('active');
             const section = this.getAttribute('data-section');
             document.getElementById('main-content').innerHTML = content[section];
+
+            // If the section is 'contact', set up the form event listener
+            if (section === 'contact') {
+                setupContactForm();
+            }
         });
     });
 
@@ -274,56 +325,10 @@ window.onload = function() {
             closeProjectModal();
         }
     });
-
-    // Load the Tally script dynamically
-    window.onload = function() {
-        var script = document.createElement('script');
-        script.src = "https://tally.so/widgets/embed.js";
-        script.async = true;
-        document.body.appendChild(script);
-    
-        script.onload = function() {
-            if (typeof Tally !== 'undefined') {
-                Tally.loadEmbeds();
-                console.log("Tally.so form script loaded successfully");
-            }
-        };
-    
-        script.onerror = function() {
-            console.log("Error loading Tally.so form script");
-        };
-    };
-    
-    // Listen for the Tally form submission event
-    window.addEventListener("message", function(event) {
-        if (event.data === 'tally:form-submitted') {
-            showPopup('✔️ Your message has been sent successfully!', 'success');
-        }
-    });
-    
-    function showPopup(message, type) {
-        const responseBox = document.querySelector("#formResponse");
-        const responseMessage = document.querySelector("#responseMessage");
-    
-        responseMessage.textContent = message;
-        responseMessage.style.color = (type === 'success') ? 'green' : 'red';
-        responseBox.style.display = 'block';
-    
-        setTimeout(() => {
-            responseBox.style.display = 'none'; // Hide the popup after 4 seconds
-        }, 4000);
-    }
-    
-    // Sync Tally embed reload on page re-navigation (for frameworks like Next.js)
-    window.addEventListener("load", function() {
-        if (typeof Tally !== 'undefined') {
-            Tally.loadEmbeds();
-        }
-    });
 };
 
 // Sync with system changes (Theme switching logic)
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({matches: isDark}) => {
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches: isDark }) => {
     theme.value = isDark ? 'dark' : 'light';
     setPreference();
 });
