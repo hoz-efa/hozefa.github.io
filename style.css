@@ -693,39 +693,53 @@
       }
   }
 
-  /* Popup Box Styling */
-  .popup-box {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 15px;
-      border-radius: 5px;
-      background-color: var(--card-bg-color);
-      color: var(--text-color);
-      box-shadow: 0 4px 8px var(--card-shadow);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-  }
+/* Popup Box Styling */
+.popup-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 8px var(--card-shadow);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
 
-  .popup-box.show {
-      opacity: 1;
-      transform: translateY(0);
-  }
+/* When the popup is visible */
+.popup-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-  .popup-box.success {
-      border-left: 5px solid #28a745;
-  }
+/* Success Message Styling */
+.popup-box.success {
+    border-left: 5px solid #28a745;
+    background-color: #eafaf1;
+}
 
-  .popup-box.error {
-      border-left: 5px solid #dc3545;
-  }
+/* Error Message Styling */
+.popup-box.error {
+    border-left: 5px solid #dc3545;
+    background-color: #faeaea;
+}
 
-  /* Adjust the styling for dark mode */
-  [data-theme="dark"] .popup-box {
-      background-color: var(--card-bg-color);
-      color: var(--text-color);
-  }
+/* Adjust the styling for dark mode */
+[data-theme="dark"] .popup-box {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+}
+
+/* Adjust background colors for dark mode success and error */
+[data-theme="dark"] .popup-box.success {
+    background-color: #2c4a35;
+}
+
+[data-theme="dark"] .popup-box.error {
+    background-color: #4a2c2c;
+}
