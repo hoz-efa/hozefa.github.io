@@ -693,7 +693,6 @@
       }
   }
 
-/* Popup Box Styling */
 .popup-box {
     position: fixed;
     bottom: 20px;
@@ -711,35 +710,21 @@
     align-items: center;
 }
 
-/* When the popup is visible */
 .popup-box.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Success Message Styling */
 .popup-box.success {
     border-left: 5px solid #28a745;
-    background-color: #eafaf1;
 }
 
-/* Error Message Styling */
 .popup-box.error {
     border-left: 5px solid #dc3545;
-    background-color: #faeaea;
 }
 
 /* Adjust the styling for dark mode */
 [data-theme="dark"] .popup-box {
     background-color: var(--card-bg-color);
     color: var(--text-color);
-}
-
-/* Adjust background colors for dark mode success and error */
-[data-theme="dark"] .popup-box.success {
-    background-color: #2c4a35;
-}
-
-[data-theme="dark"] .popup-box.error {
-    background-color: #4a2c2c;
 }
