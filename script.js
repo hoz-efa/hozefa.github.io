@@ -133,18 +133,19 @@ const content = {
             <form id="contactForm" action="https://formsubmit.co/hozefapatel1999@gmail.com" method="POST" class="contact-form card">
                 <!-- Hidden fields for better form handling -->
                 <input type="hidden" name="_subject" value="New message from your portfolio website!">
-                <input type="hidden" name="_captcha" value="false"> <!-- To disable FormSubmit's captcha -->
-                <input type="hidden" name="_template" value="table"> <!-- Optional: Template to format the email -->
-
+                <input type="hidden" name="_captcha" value="false"> <!-- Disable captcha -->
+                <input type="hidden" name="_template" value="table"> <!-- Use table formatting -->
+                <input type="hidden" name="_next" value="javascript:void(0);"> <!-- Prevent redirection -->
+    
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" placeholder="Your Message" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
-
+    
             <div id="formResponse" class="popup-box" style="display:none;">
                 <span id="responseMessage"></span>
             </div>
-
+    
             <div class="schedule-meeting">
                 <a href="https://calendly.com/hozefapatel1999" target="_blank">Schedule a Meeting</a>
             </div>
@@ -258,22 +259,23 @@ window.onload = () => {
     });
 
     // Form submission handling
-    const form = document.querySelector("#contactForm"); // Make sure you're selecting the correct form
+    const form = document.querySelector("#contactForm"); 
     const responseBox = document.querySelector("#formResponse");
     const responseMessage = document.querySelector("#responseMessage");
-
+    
     form.addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent the default form submission
-
+    
         const formData = new FormData(form); // Collect form data
-
+    
         // Send form data via fetch API
-        fetch("https://formsubmit.co/hozefapatel1999@gmail.com", { // Update the URL with your FormSubmit action
+        fetch("https://formsubmit.co/ajax/hozefapatel1999@gmail.com", {
             method: "POST",
-            body: formData
+            body: formData,
         })
-        .then(response => {
-            if (response.ok) {
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
                 // Show success popup
                 showPopup('✔️ Your message has been sent successfully!', 'success');
             } else {
@@ -286,13 +288,13 @@ window.onload = () => {
             showPopup('❌ Failed to submit the form. Please check your internet connection.', 'error');
         });
     });
-
+    
     // Function to show popup messages
     function showPopup(message, type) {
         responseMessage.textContent = message;
         responseMessage.style.color = (type === 'success') ? 'green' : 'red';
         responseBox.style.display = 'block';
-
+    
         setTimeout(() => {
             responseBox.style.display = 'none'; // Hide the popup after 4 seconds
         }, 4000); 
