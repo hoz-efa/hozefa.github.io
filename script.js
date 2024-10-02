@@ -135,7 +135,7 @@ const content = {
 
                 <!-- Input fields -->
                 <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
 
@@ -143,7 +143,6 @@ const content = {
             <div id="formResponse" class="popup-box">
                 <div id="responseMessage"></div>
             </div>
-
 
             <div class="schedule-meeting">
                 <a href="https://calendly.com/hozefapatel1999" target="_blank">Schedule a Meeting</a>
@@ -216,31 +215,37 @@ function showPopup(message, type) {
     // Clear previous content
     responseMessage.innerHTML = '';
 
-    // Create icon element
-    const icon = document.createElement('span');
-    icon.classList.add('popup-icon');
-
+    // Create HTML for icon
+    let iconHtml = '';
     if (type === 'success') {
-        responseBox.classList.add('success');
-        responseBox.classList.remove('error');
-        icon.textContent = '✔️'; // Success icon
+        iconHtml = `
+        <svg class="popup-svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12,2C6.477,2,2,6.477,2,12c0,5.523,4.477,10,10,10s10-4.477,10-10C22,6.477,17.523,2,12,2z M17.707,9.707l-7,7 C10.512,16.902,10.256,17,10,17s-0.512-0.098-0.707-0.293l-3-3c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0L10,14.586 l6.293-6.293c0.391-0.391,1.023-0.391,1.414,0S18.098,9.316,17.707,9.707z"></path>
+        </svg>
+        `;
     } else {
-        responseBox.classList.add('error');
-        responseBox.classList.remove('success');
-        icon.textContent = '❌'; // Error icon
+        iconHtml = `
+        <svg class="popup-svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2,2,6.47,2,12c0,5.53,4.47,10,10,10s10-4.47,10-10C22,6.47,17.53,2,12,2z M16.707,15.293 c0.391,0.391,0.391,1.023,0,1.414C16.512,16.902,16.256,17,16,17s-0.512-0.098-0.707-0.293L12,13.414l-3.293,3.293 C8.512,16.902,8.256,17,8,17s-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414L10.586,12L7.293,8.707 c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0L12,10.586l3.293-3.293c0.391-0.391,1.023-0.391,1.414,0 s0.391,1.023,0,1.414L13.414,12L16.707,15.293z"></path>
+        </svg>
+        `;
     }
 
-    // Append icon and message to the responseMessage
-    responseMessage.appendChild(icon);
-    const text = document.createElement('span');
-    text.textContent = message;
-    responseMessage.appendChild(text);
+    // Combine icon and message in the new structure
+    responseMessage.innerHTML = `
+        <div class="popup-icon">${iconHtml}</div>
+        <div class="popup-message">${message}</div>
+    `;
 
+    // Set the appropriate class for styling
+    responseBox.className = `popup-box ${type}`;
+
+    // Show the popup
     responseBox.classList.add('show');
 
     setTimeout(() => {
-        responseBox.classList.remove('show'); // Hide the popup after 4 seconds
-    }, 4000);
+        responseBox.classList.remove('show');
+    }, 4500);
 }
 
 // Function to set up the contact form
@@ -295,37 +300,49 @@ window.onload = function () {
             if (section === 'contact') {
                 setupContactForm();
             }
+
+            // Re-initialize project modal functionality when loading projects
+            if (section === 'projects') {
+                initializeProjectCards();
+            }
         });
     });
 
     // Initially load "Projects" section
     document.getElementById('main-content').innerHTML = content['projects'];
 
-    // Project modal functionality
-    document.addEventListener('click', function (e) {
-        if (e.target && (e.target.matches('.project-card') || e.target.closest('.project-card'))) {
-            const projectCard = e.target.closest('.project-card');
-            const projectId = projectCard.getAttribute('data-project-id');
-            openProjectModal(projectId);
-        }
-
-        if (e.target && (e.target.matches('.close-button') || e.target.matches('.modal-overlay'))) {
-            closeProjectModal();
-        }
-
-        // Close modal if click outside modal-content
-        if (e.target.matches('.modal') && !e.target.closest('.modal-content')) {
-            closeProjectModal();
-        }
-    });
-
-    // Close modal on 'Esc' key press
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && document.body.classList.contains('modal-active')) {
-            closeProjectModal();
-        }
-    });
+    // Initialize project modal functionality
+    initializeProjectCards();
 };
+
+// Function to initialize project card click events
+function initializeProjectCards() {
+    document.querySelectorAll('.project-card').forEach((card) => {
+        card.addEventListener('click', function () {
+            const projectId = this.getAttribute('data-project-id');
+            openProjectModal(projectId);
+        });
+    });
+}
+
+// Project modal functionality
+document.addEventListener('click', function (e) {
+    if (e.target && (e.target.matches('.close-button') || e.target.matches('.modal-overlay'))) {
+        closeProjectModal();
+    }
+
+    // Close modal if click outside modal-content
+    if (e.target.matches('.modal') && !e.target.closest('.modal-content')) {
+        closeProjectModal();
+    }
+});
+
+// Close modal on 'Esc' key press
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.body.classList.contains('modal-active')) {
+        closeProjectModal();
+    }
+});
 
 // Sync with system changes (Theme switching logic)
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches: isDark }) => {
