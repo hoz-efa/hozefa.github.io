@@ -130,17 +130,9 @@ const content = {
     contact: `
         <section id="contact" class="content-section">
             <h2>Contact Me</h2>
-            <form id="contactForm" action="https://formsubmit.co/hozefapatel1999@gmail.com" method="POST" class="contact-form card">
-                <!-- Hidden fields for better form handling -->
-                <input type="hidden" name="_subject" value="New message from your portfolio website!">
-                <input type="hidden" name="_captcha" value="false"> <!-- Disable captcha -->
-                <input type="hidden" name="_template" value="table"> <!-- Use table formatting -->
-                <input type="hidden" name="_next" value="javascript:void(0);"> <!-- Prevent redirection -->
     
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
+            <!-- Tally.so form embed -->
+            <iframe data-tally-src="https://tally.so/embed/mOJXgp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Contact Form"></iframe>
     
             <div id="formResponse" class="popup-box" style="display:none;">
                 <span id="responseMessage"></span>
@@ -258,46 +250,25 @@ window.onload = () => {
         }
     });
 
-    // Form submission handling
-    const form = document.querySelector("#contactForm"); 
-    const responseBox = document.querySelector("#formResponse");
-    const responseMessage = document.querySelector("#responseMessage");
-    
-    form.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent the default form submission
-    
-        const formData = new FormData(form); // Collect form data
-    
-        // Send form data via fetch API
-        fetch("https://formsubmit.co/ajax/hozefapatel1999@gmail.com", {
-            method: "POST",
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Show success popup
-                showPopup('✔️ Your message has been sent successfully!', 'success');
-            } else {
-                // Show error popup
-                showPopup('❌ There was an error sending your message. Please try again.', 'error');
-            }
-        })
-        .catch(error => {
-            // Show error popup if fetch fails
-            showPopup('❌ Failed to submit the form. Please check your internet connection.', 'error');
-        });
+    // Listen for the Tally form submission event
+    window.addEventListener("message", function(event) {
+        if (event.data === 'tally:form-submitted') {
+            showPopup('✔️ Your message has been sent successfully!', 'success');
+        }
     });
     
     // Function to show popup messages
     function showPopup(message, type) {
+        const responseBox = document.querySelector("#formResponse");
+        const responseMessage = document.querySelector("#responseMessage");
+    
         responseMessage.textContent = message;
         responseMessage.style.color = (type === 'success') ? 'green' : 'red';
         responseBox.style.display = 'block';
     
         setTimeout(() => {
             responseBox.style.display = 'none'; // Hide the popup after 4 seconds
-        }, 4000); 
+        }, 4000);
     }
 };
 
