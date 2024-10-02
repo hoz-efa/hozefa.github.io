@@ -259,16 +259,16 @@ function setupContactForm() {
                 .then(async (response) => {
                     let json = await response.json();
                     if (response.status === 200) {
-                        showPopup('✔️ Your message has been sent successfully!', 'success');
+                        showPopup('Your message has been sent successfully!', 'success');
                         contactForm.reset();
                     } else {
                         console.log(json);
-                        showPopup('❌ Something went wrong, please try again.', 'error');
+                        showPopup('Something went wrong, please try again.', 'error');
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    showPopup('❌ Something went wrong, please try again.', 'error');
+                    showPopup('Something went wrong, please try again.', 'error');
                 });
         });
     }
