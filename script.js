@@ -275,10 +275,49 @@ window.onload = function() {
         }
     });
 
+    // Load the Tally script dynamically
+    window.onload = function() {
+        var script = document.createElement('script');
+        script.src = "https://tally.so/widgets/embed.js";
+        script.async = true;
+        document.body.appendChild(script);
+    
+        script.onload = function() {
+            if (typeof Tally !== 'undefined') {
+                Tally.loadEmbeds();
+                console.log("Tally.so form script loaded successfully");
+            }
+        };
+    
+        script.onerror = function() {
+            console.log("Error loading Tally.so form script");
+        };
+    };
+    
     // Listen for the Tally form submission event
     window.addEventListener("message", function(event) {
         if (event.data === 'tally:form-submitted') {
             showPopup('✔️ Your message has been sent successfully!', 'success');
+        }
+    });
+    
+    function showPopup(message, type) {
+        const responseBox = document.querySelector("#formResponse");
+        const responseMessage = document.querySelector("#responseMessage");
+    
+        responseMessage.textContent = message;
+        responseMessage.style.color = (type === 'success') ? 'green' : 'red';
+        responseBox.style.display = 'block';
+    
+        setTimeout(() => {
+            responseBox.style.display = 'none'; // Hide the popup after 4 seconds
+        }, 4000);
+    }
+    
+    // Sync Tally embed reload on page re-navigation (for frameworks like Next.js)
+    window.addEventListener("load", function() {
+        if (typeof Tally !== 'undefined') {
+            Tally.loadEmbeds();
         }
     });
 };
