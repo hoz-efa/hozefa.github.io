@@ -130,7 +130,12 @@ const content = {
     contact: `
         <section id="contact" class="content-section">
             <h2>Contact Me</h2>
-            <form id="contactForm" action="https://formsubmit.co/el/zalupa" method="POST" class="contact-form card">
+            <form id="contactForm" action="https://formsubmit.co/hozefapatel1999@gmail.com" method="POST" class="contact-form card">
+                <!-- Hidden fields for better form handling -->
+                <input type="hidden" name="_subject" value="New message from your portfolio website!">
+                <input type="hidden" name="_captcha" value="false"> <!-- To disable FormSubmit's captcha -->
+                <input type="hidden" name="_template" value="table"> <!-- Optional: Template to format the email -->
+
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" placeholder="Your Message" required></textarea>
                 <button type="submit">Send Message</button>
@@ -263,7 +268,7 @@ window.onload = () => {
         const formData = new FormData(form); // Collect form data
 
         // Send form data via fetch API
-        fetch("https://formsubmit.co/el/zalupa", {
+        fetch("https://formsubmit.co/hozefapatel1999@gmail.com", { // Update the URL with your FormSubmit action
             method: "POST",
             body: formData
         })
