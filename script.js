@@ -130,13 +130,18 @@ const content = {
     contact: `
         <section id="contact" class="content-section">
             <h2>Contact Me</h2>
-            <form class="contact-form card">
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
+            <form id="contactForm" action="https://formsubmit.co/el/zalupa" method="POST" class="contact-form card">
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
+
+            <div id="formResponse" class="popup-box" style="display:none;">
+                <span id="responseMessage"></span>
+            </div>
+
             <div class="schedule-meeting">
-                <a href="https://calendly.com/your-link" target="_blank">Schedule a Meeting</a>
+                <a href="https://calendly.com/hozefapatel1999" target="_blank">Schedule a Meeting</a>
             </div>
         </section>
     `,
@@ -216,7 +221,6 @@ window.onload = () => {
             this.classList.add('active');
             const section = this.getAttribute('data-section');
             document.getElementById('main-content').innerHTML = content[section];
-            // Do not scroll to top
         });
     });
 
@@ -247,12 +251,51 @@ window.onload = () => {
             closeProjectModal();
         }
     });
+
+    // Form submission handling
+    const form = document.querySelector("#contactForm"); // Make sure you're selecting the correct form
+    const responseBox = document.querySelector("#formResponse");
+    const responseMessage = document.querySelector("#responseMessage");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(form); // Collect form data
+
+        // Send form data via fetch API
+        fetch("https://formsubmit.co/el/zalupa", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Show success popup
+                showPopup('✔️ Your message has been sent successfully!', 'success');
+            } else {
+                // Show error popup
+                showPopup('❌ There was an error sending your message. Please try again.', 'error');
+            }
+        })
+        .catch(error => {
+            // Show error popup if fetch fails
+            showPopup('❌ Failed to submit the form. Please check your internet connection.', 'error');
+        });
+    });
+
+    // Function to show popup messages
+    function showPopup(message, type) {
+        responseMessage.textContent = message;
+        responseMessage.style.color = (type === 'success') ? 'green' : 'red';
+        responseBox.style.display = 'block';
+
+        setTimeout(() => {
+            responseBox.style.display = 'none'; // Hide the popup after 4 seconds
+        }, 4000); 
+    }
 };
 
-// Sync with system changes
-window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', ({matches:isDark}) => {
-        theme.value = isDark ? 'dark' : 'light';
-        setPreference();
-    });
+// Sync with system changes (Theme switching logic)
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({matches: isDark}) => {
+    theme.value = isDark ? 'dark' : 'light';
+    setPreference();
+});
