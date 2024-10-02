@@ -130,10 +130,9 @@ const content = {
     contact: `
         <section id="contact" class="content-section">
             <h2>Contact Me</h2>
-    
             <!-- Tally.so form embed -->
-            <iframe data-tally-src="https://tally.so/embed/mOJXgp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="228" frameborder="0" marginheight="0" marginwidth="0" title="Contact Form"></iframe><script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-    
+            <iframe data-tally-src="https://tally.so/embed/mOJXgp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="228" frameborder="0" marginheight="0" marginwidth="0" title="Contact Form"></iframe>
+            
             <div id="formResponse" class="popup-box" style="display:none;">
                 <span id="responseMessage"></span>
             </div>
@@ -201,10 +200,36 @@ function closeProjectModal() {
     document.body.classList.remove('modal-active');
 }
 
-// Set theme early to avoid page flashes
-reflectPreference();
+// Function to show popup messages
+function showPopup(message, type) {
+    const responseBox = document.querySelector("#formResponse");
+    const responseMessage = document.querySelector("#responseMessage");
 
-window.onload = () => {
+    responseMessage.textContent = message;
+    responseMessage.style.color = (type === 'success') ? 'green' : 'red';
+    responseBox.style.display = 'block';
+
+    setTimeout(() => {
+        responseBox.style.display = 'none'; // Hide the popup after 4 seconds
+    }, 4000);
+}
+
+// Main onload function (only one)
+window.onload = function() {
+    // Load the Tally.so embed script dynamically
+    var script = document.createElement('script');
+    script.src = "https://tally.so/widgets/embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    script.onload = function() {
+        console.log("Tally.so form script loaded successfully");
+    };
+
+    script.onerror = function() {
+        console.log("Error loading Tally.so form script");
+    };
+
     // Set theme on load for screen readers
     reflectPreference();
 
@@ -256,20 +281,6 @@ window.onload = () => {
             showPopup('✔️ Your message has been sent successfully!', 'success');
         }
     });
-    
-    // Function to show popup messages
-    function showPopup(message, type) {
-        const responseBox = document.querySelector("#formResponse");
-        const responseMessage = document.querySelector("#responseMessage");
-    
-        responseMessage.textContent = message;
-        responseMessage.style.color = (type === 'success') ? 'green' : 'red';
-        responseBox.style.display = 'block';
-    
-        setTimeout(() => {
-            responseBox.style.display = 'none'; // Hide the popup after 4 seconds
-        }, 4000);
-    }
 };
 
 // Sync with system changes (Theme switching logic)
